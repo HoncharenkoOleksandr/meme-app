@@ -12,7 +12,7 @@ export default function MemeCards({ memes }: { memes: Meme[] }) {
           <div className="relative w-full flex justify-center items-center">
             <Image
               alt={m.name}
-              className="max-w-full h-full min-h-[500px] max-h-[300px] object-cover"
+              className="max-w-full h-full min-h-[500px] max-h-[300px] object-fill"
               src={m.image}
             />
           </div>
