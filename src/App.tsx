@@ -1,21 +1,34 @@
-import { Route, Routes } from "react-router-dom";
+import { Spinner } from '@heroui/spinner';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import IndexPage from "@/pages/index";
-import DocsPage from "@/pages/docs";
-import PricingPage from "@/pages/pricing";
-import BlogPage from "@/pages/blog";
-import AboutPage from "@/pages/about";
+import Navbar from './components/Navbar';
+import { useFetchMemes } from './hooks/useFetchMemes';
+import ListPage from './pages/ListPage';
+import TablePage from './pages/TablePage';
 
-function App() {
+export default function App() {
+  const [memes, setMemes, loading, error] = useFetchMemes();
+
   return (
-    <Routes>
-      <Route element={<IndexPage />} path="/" />
-      <Route element={<DocsPage />} path="/docs" />
-      <Route element={<PricingPage />} path="/pricing" />
-      <Route element={<BlogPage />} path="/blog" />
-      <Route element={<AboutPage />} path="/about" />
-    </Routes>
+    <>
+      <Navbar />
+      <main className="p-4">
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <Spinner />
+          </div>
+        ) : error ? (
+          <div className="flex justify-center items-center">
+            <p className="text-danger">Error: {error}</p>
+          </div>
+        ) : (
+          <Routes>
+            <Route element={<Navigate replace to="/table" />} path="/" />
+            <Route element={<TablePage memes={memes} setMemes={setMemes} />} path="/table" />
+            <Route element={<ListPage memes={memes} />} path="/list" />
+          </Routes>
+        )}
+      </main>
+    </>
   );
 }
-
-export default App;
