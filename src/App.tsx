@@ -1,7 +1,7 @@
 import { Spinner } from '@heroui/spinner';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar';
 import { useFetchMemes } from './hooks/useFetchMemes';
 import ListPage from './pages/ListPage';
 import TablePage from './pages/TablePage';
@@ -24,7 +24,10 @@ export default function App() {
         ) : (
           <Routes>
             <Route element={<Navigate replace to="/table" />} path="/" />
-            <Route element={<TablePage memes={memes} setMemes={setMemes} />} path="/table" />
+            <Route
+              element={<TablePage memes={memes} setMemes={setMemes} />}
+              path="/table"
+            />
             <Route element={<ListPage memes={memes} />} path="/list" />
           </Routes>
         )}
